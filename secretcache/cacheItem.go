@@ -16,15 +16,14 @@
 package secretcache
 
 import (
+	"context"
 	"fmt"
 	"math"
 	"math/rand"
 	"time"
 
-	"github.com/aws/aws-sdk-go/aws"
-	"github.com/aws/aws-sdk-go/aws/request"
-	"github.com/aws/aws-sdk-go/service/secretsmanager"
-	"github.com/aws/aws-sdk-go/service/secretsmanager/secretsmanageriface"
+	"github.com/aws/aws-sdk-go-v2/service/secretsmanager"
+	"github.com/tgilino/aws-secretsmanager-caching-go/secretcache/secretsmanager_interface"
 )
 
 // secretCacheItem maintains a cache of secret versions.
@@ -38,7 +37,7 @@ type secretCacheItem struct {
 }
 
 // newSecretCacheItem initialises a secretCacheItem using default cache size and sets next refresh time to now
-func newSecretCacheItem(config CacheConfig, client secretsmanageriface.SecretsManagerAPI, secretId string) secretCacheItem {
+func newSecretCacheItem(config CacheConfig, client secretsmanager_interface.SecretsManagerAPI, secretId string) secretCacheItem {
 	return secretCacheItem{
 		versions:        newLRUCache(10),
 		cacheObject:     &cacheObject{config: config, client: client, secretId: secretId, refreshNeeded: true},
@@ -69,7 +68,7 @@ func (ci *secretCacheItem) getVersionId(versionStage string) (string, bool) {
 
 	for versionId, stages := range result.VersionIdsToStages {
 		for _, stage := range stages {
-			if versionStage == *stage {
+			if versionStage == stage {
 				return versionId, true
 			}
 		}
@@ -85,7 +84,7 @@ func (ci *secretCacheItem) executeRefresh() (*secretsmanager.DescribeSecretOutpu
 		SecretId: &ci.secretId,
 	}
 
-	result, err := ci.client.DescribeSecretWithContext(aws.BackgroundContext(), input, request.WithAppendUserAgent(userAgent()))
+	result, err := ci.client.DescribeSecret(context.Background(), input)
 
 	var maxTTL int64
 	if ci.config.CacheItemTTL == 0 {
