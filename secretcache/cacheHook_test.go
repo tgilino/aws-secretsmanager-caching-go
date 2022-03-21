@@ -17,7 +17,7 @@ import (
 	"bytes"
 	"testing"
 
-	"github.com/tgilino/aws-secretsmanager-caching-go/secretcache"
+	"github.com/tgilino/aws-secretsmanager-caching-go-v2/secretcache"
 )
 
 type DummyCacheHook struct {

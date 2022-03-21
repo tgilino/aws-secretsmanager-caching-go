@@ -19,7 +19,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/tgilino/aws-secretsmanager-caching-go/secretcache/secretsmanager_interface"
+	"github.com/tgilino/aws-secretsmanager-caching-go-v2/secretcache/secretsmanager_interface"
 )
 
 const (

@@ -33,7 +33,7 @@ package main
 
 import (
 	"github.com/aws/aws-lambda-go/lambda"
-	"github.com/tgilino/aws-secretsmanager-caching-go/secretcache"
+	"github.com/tgilino/aws-secretsmanager-caching-go-v2/secretcache"
 )
 
 var(

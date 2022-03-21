@@ -1,4 +1,4 @@
-module github.com/tgilino/aws-secretsmanager-caching-go
+module github.com/tgilino/aws-secretsmanager-caching-go-v2
 
 go 1.17
 

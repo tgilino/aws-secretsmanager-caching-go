@@ -19,7 +19,7 @@ import (
 	"testing"
 
 	"github.com/aws/aws-sdk-go-v2/service/secretsmanager"
-	"github.com/tgilino/aws-secretsmanager-caching-go/secretcache"
+	"github.com/tgilino/aws-secretsmanager-caching-go-v2/secretcache"
 )
 
 func TestInstantiatesClient(t *testing.T) {
