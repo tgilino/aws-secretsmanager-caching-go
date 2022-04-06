@@ -23,7 +23,7 @@ import (
 	"time"
 
 	"github.com/aws/aws-sdk-go-v2/service/secretsmanager"
-	"github.com/tgilino/aws-secretsmanager-caching-go-v2/secretcache/secretsmanager_interface"
+	"github.com/tgilino/aws-secretsmanager-caching-go-v2/secretcache/secretsmanageriface"
 )
 
 // secretCacheItem maintains a cache of secret versions.
@@ -37,7 +37,7 @@ type secretCacheItem struct {
 }
 
 // newSecretCacheItem initialises a secretCacheItem using default cache size and sets next refresh time to now
-func newSecretCacheItem(config CacheConfig, client secretsmanager_interface.SecretsManagerAPI, secretId string) secretCacheItem {
+func newSecretCacheItem(config CacheConfig, client secretsmanageriface.SecretsManagerAPI, secretId string) secretCacheItem {
 	return secretCacheItem{
 		versions:        newLRUCache(10),
 		cacheObject:     &cacheObject{config: config, client: client, secretId: secretId, refreshNeeded: true},

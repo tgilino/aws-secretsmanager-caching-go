@@ -14,13 +14,13 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/secretsmanager/types"
 	"github.com/aws/smithy-go"
 	"github.com/tgilino/aws-secretsmanager-caching-go-v2/secretcache"
-	"github.com/tgilino/aws-secretsmanager-caching-go-v2/secretcache/secretsmanager_interface"
+	"github.com/tgilino/aws-secretsmanager-caching-go-v2/secretcache/secretsmanageriface"
 )
 
 var (
 	randStringSet    = []rune("abcdefghijklmnopqrstuvwxyz0123456789")
 	secretNamePrefix = "scIntegTest_"
-	subTests         = []func(t *testing.T, api secretsmanager_interface.SecretsManagerAPI) string{
+	subTests         = []func(t *testing.T, api secretsmanageriface.SecretsManagerAPI) string{
 		integTest_getSecretBinary,
 		integTest_getSecretBinaryWithStage,
 		integTest_getSecretString,
@@ -50,7 +50,7 @@ func generateSecretName(testName string) (string, string) {
 }
 
 func createSecret(
-	testName string, secretString *string, secretBinary []byte, api secretsmanager_interface.SecretsManagerAPI,
+	testName string, secretString *string, secretBinary []byte, api secretsmanageriface.SecretsManagerAPI,
 ) (*secretsmanager.CreateSecretOutput, error) {
 	secretName, requestToken := generateSecretName(testName)
 	createSecretInput := &secretsmanager.CreateSecretInput{
@@ -150,7 +150,7 @@ func TestIntegration(t *testing.T) {
 	}
 }
 
-func integTest_getSecretBinary(t *testing.T, api secretsmanager_interface.SecretsManagerAPI) string {
+func integTest_getSecretBinary(t *testing.T, api secretsmanageriface.SecretsManagerAPI) string {
 	cache, _ := secretcache.New(
 		func(c *secretcache.Cache) { c.Client = api },
 	)
@@ -177,7 +177,7 @@ func integTest_getSecretBinary(t *testing.T, api secretsmanager_interface.Secret
 	return *createResult.ARN
 }
 
-func integTest_getSecretBinaryWithStage(t *testing.T, api secretsmanager_interface.SecretsManagerAPI) string {
+func integTest_getSecretBinaryWithStage(t *testing.T, api secretsmanageriface.SecretsManagerAPI) string {
 	cache, _ := secretcache.New(
 		func(c *secretcache.Cache) { c.Client = api },
 	)
@@ -229,7 +229,7 @@ func integTest_getSecretBinaryWithStage(t *testing.T, api secretsmanager_interfa
 	return *createResult.ARN
 }
 
-func integTest_getSecretString(t *testing.T, api secretsmanager_interface.SecretsManagerAPI) string {
+func integTest_getSecretString(t *testing.T, api secretsmanageriface.SecretsManagerAPI) string {
 	cache, _ := secretcache.New(
 		func(c *secretcache.Cache) { c.Client = api },
 	)
@@ -255,7 +255,7 @@ func integTest_getSecretString(t *testing.T, api secretsmanager_interface.Secret
 	return *createResult.ARN
 }
 
-func integTest_getSecretStringWithStage(t *testing.T, api secretsmanager_interface.SecretsManagerAPI) string {
+func integTest_getSecretStringWithStage(t *testing.T, api secretsmanageriface.SecretsManagerAPI) string {
 	cache, _ := secretcache.New(
 		func(c *secretcache.Cache) { c.Client = api },
 	)
@@ -307,7 +307,7 @@ func integTest_getSecretStringWithStage(t *testing.T, api secretsmanager_interfa
 	return *createResult.ARN
 }
 
-func integTest_getSecretStringWithTTL(t *testing.T, api secretsmanager_interface.SecretsManagerAPI) string {
+func integTest_getSecretStringWithTTL(t *testing.T, api secretsmanageriface.SecretsManagerAPI) string {
 	ttlNanoSeconds := (time.Second * 2).Nanoseconds()
 	cache, _ := secretcache.New(
 		func(c *secretcache.Cache) { c.Client = api },
@@ -371,7 +371,7 @@ func integTest_getSecretStringWithTTL(t *testing.T, api secretsmanager_interface
 	return *createResult.ARN
 }
 
-func integTest_getSecretStringNoSecret(t *testing.T, api secretsmanager_interface.SecretsManagerAPI) string {
+func integTest_getSecretStringNoSecret(t *testing.T, api secretsmanageriface.SecretsManagerAPI) string {
 	cache, _ := secretcache.New(
 		func(c *secretcache.Cache) { c.Client = api },
 	)

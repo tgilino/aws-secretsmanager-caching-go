@@ -1,4 +1,4 @@
-package secretsmanager_interface
+package secretsmanageriface
 
 import (
 	"context"

@@ -20,14 +20,14 @@ import (
 
 	"github.com/aws/aws-sdk-go-v2/config"
 	"github.com/aws/aws-sdk-go-v2/service/secretsmanager"
-	"github.com/tgilino/aws-secretsmanager-caching-go-v2/secretcache/secretsmanager_interface"
+	"github.com/tgilino/aws-secretsmanager-caching-go-v2/secretcache/secretsmanageriface"
 )
 
 // Cache client for AWS Secrets Manager secrets.
 type Cache struct {
 	lru *lruCache
 	CacheConfig
-	Client secretsmanager_interface.SecretsManagerAPI
+	Client secretsmanageriface.SecretsManagerAPI
 }
 
 // New constructs a secret cache using functional options, uses defaults otherwise.

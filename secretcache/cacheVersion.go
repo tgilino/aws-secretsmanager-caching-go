@@ -21,7 +21,7 @@ import (
 	"time"
 
 	"github.com/aws/aws-sdk-go-v2/service/secretsmanager"
-	"github.com/tgilino/aws-secretsmanager-caching-go-v2/secretcache/secretsmanager_interface"
+	"github.com/tgilino/aws-secretsmanager-caching-go-v2/secretcache/secretsmanageriface"
 )
 
 // cacheVersion is the cache object for a secret version.
@@ -31,7 +31,7 @@ type cacheVersion struct {
 }
 
 // newCacheVersion initialises a cacheVersion to cache a secret version.
-func newCacheVersion(config CacheConfig, client secretsmanager_interface.SecretsManagerAPI, secretId string, versionId string) cacheVersion {
+func newCacheVersion(config CacheConfig, client secretsmanageriface.SecretsManagerAPI, secretId string, versionId string) cacheVersion {
 	return cacheVersion{
 		versionId:   versionId,
 		cacheObject: &cacheObject{config: config, client: client, secretId: secretId, refreshNeeded: true},

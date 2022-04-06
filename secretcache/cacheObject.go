@@ -19,7 +19,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/tgilino/aws-secretsmanager-caching-go-v2/secretcache/secretsmanager_interface"
+	"github.com/tgilino/aws-secretsmanager-caching-go-v2/secretcache/secretsmanageriface"
 )
 
 const (
@@ -32,7 +32,7 @@ const (
 type cacheObject struct {
 	mux           sync.Mutex
 	config        CacheConfig
-	client        secretsmanager_interface.SecretsManagerAPI
+	client        secretsmanageriface.SecretsManagerAPI
 	secretId      string
 	err           error
 	errorCount    int

@@ -20,7 +20,7 @@ import (
 	"time"
 
 	"github.com/aws/aws-sdk-go-v2/service/secretsmanager"
-	"github.com/tgilino/aws-secretsmanager-caching-go-v2/secretcache/secretsmanager_interface"
+	"github.com/tgilino/aws-secretsmanager-caching-go-v2/secretcache/secretsmanageriface"
 )
 
 func TestIsRefreshNeededBase(t *testing.T) {
@@ -90,7 +90,7 @@ func TestMaxCacheTTL(t *testing.T) {
 }
 
 type dummyClient struct {
-	secretsmanager_interface.SecretsManagerAPI
+	secretsmanageriface.SecretsManagerAPI
 }
 
 func (d *dummyClient) DescribeSecret(ctx context.Context, params *secretsmanager.DescribeSecretInput, optFns ...func(*secretsmanager.Options)) (*secretsmanager.DescribeSecretOutput, error) {

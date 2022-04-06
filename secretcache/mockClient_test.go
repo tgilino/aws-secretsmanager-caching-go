@@ -18,12 +18,12 @@ import (
 	"time"
 
 	"github.com/aws/aws-sdk-go-v2/service/secretsmanager"
-	"github.com/tgilino/aws-secretsmanager-caching-go-v2/secretcache/secretsmanager_interface"
+	"github.com/tgilino/aws-secretsmanager-caching-go-v2/secretcache/secretsmanageriface"
 )
 
 // A struct to be used in unit tests as a mock Client
 type mockSecretsManagerClient struct {
-	secretsmanager_interface.SecretsManagerAPI
+	secretsmanageriface.SecretsManagerAPI
 	MockedGetResult         *secretsmanager.GetSecretValueOutput
 	MockedDescribeResult    *secretsmanager.DescribeSecretOutput
 	GetSecretValueErr       error
