@@ -16,13 +16,12 @@
 package secretcache
 
 import (
+	"context"
 	"math"
 	"time"
 
-	"github.com/aws/aws-sdk-go/aws"
-	"github.com/aws/aws-sdk-go/aws/request"
-	"github.com/aws/aws-sdk-go/service/secretsmanager"
-	"github.com/aws/aws-sdk-go/service/secretsmanager/secretsmanageriface"
+	"github.com/aws/aws-sdk-go-v2/service/secretsmanager"
+	"github.com/tgilino/aws-secretsmanager-caching-go-v2/secretcache/secretsmanageriface"
 )
 
 // cacheVersion is the cache object for a secret version.
@@ -77,7 +76,7 @@ func (cv *cacheVersion) executeRefresh() (*secretsmanager.GetSecretValueOutput, 
 		SecretId:  &cv.secretId,
 		VersionId: &cv.versionId,
 	}
-	return cv.client.GetSecretValueWithContext(aws.BackgroundContext(), input, request.WithAppendUserAgent(userAgent()))
+	return cv.client.GetSecretValue(context.Background(), input)
 }
 
 // getSecretValue gets the cached secret version value.

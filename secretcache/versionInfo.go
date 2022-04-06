@@ -17,7 +17,7 @@ package secretcache
 
 const (
 	VersionNumber        = "1"
-	MajorRevisionNumber  = "1"
+	MajorRevisionNumber  = "2"
 	MinorRevisionNumber  = "0"
 	BugfixRevisionNumber = "0"
 )

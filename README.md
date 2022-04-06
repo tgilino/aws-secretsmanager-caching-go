@@ -1,6 +1,6 @@
 ## AWS Secrets Manager Go Caching Client
 
-The AWS Secrets Manager Go caching client enables in-process caching of secrets for Go applications.
+The AWS Secrets Manager Go caching client enables in-process caching of secrets for Go applications. This repo was forked from [AWS Secrets Manager Go Caching Client](https://github.com/aws/aws-secretsmanager-caching-go/secretcache) in order to be updated to support aws-sdk-v2.
 
 ## Getting Started
 
@@ -33,7 +33,7 @@ package main
 
 import (
 	"github.com/aws/aws-lambda-go/lambda"
-	"github.com/aws/aws-secretsmanager-caching-go/secretcache"
+	"github.com/tgilino/aws-secretsmanager-caching-go-v2/secretcache"
 )
 
 var(

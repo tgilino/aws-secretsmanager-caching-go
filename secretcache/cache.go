@@ -16,9 +16,11 @@
 package secretcache
 
 import (
-	"github.com/aws/aws-sdk-go/aws/session"
-	"github.com/aws/aws-sdk-go/service/secretsmanager"
-	"github.com/aws/aws-sdk-go/service/secretsmanager/secretsmanageriface"
+	"context"
+
+	"github.com/aws/aws-sdk-go-v2/config"
+	"github.com/aws/aws-sdk-go-v2/service/secretsmanager"
+	"github.com/tgilino/aws-secretsmanager-caching-go-v2/secretcache/secretsmanageriface"
 )
 
 // Cache client for AWS Secrets Manager secrets.
@@ -54,12 +56,12 @@ func New(optFns ...func(*Cache)) (*Cache, error) {
 
 	//Initialise the secrets manager client
 	if cache.Client == nil {
-		sess, err := session.NewSession()
+		cfg, err := config.LoadDefaultConfig(context.TODO())
 		if err != nil {
 			return nil, err
 		}
 
-		cache.Client = secretsmanager.New(sess)
+		cache.Client = secretsmanager.NewFromConfig(cfg)
 	}
 
 	return cache, nil
